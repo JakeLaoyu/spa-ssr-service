@@ -16,9 +16,17 @@ class Spider {
     await page.goto(`${Config.site}${ctx.request.url}`)
     await page.waitFor(1000)
     await page.evaluate(() => {
-      let elements = document.querySelectorAll('script')
-      for (var i = 0; i < elements.length; i++) {
-        elements[i].parentNode.removeChild(elements[i])
+      let elementsScript = document.querySelectorAll('script')
+      for (let i = 0; i < elementsScript.length; i++) {
+        elementsScript[i].parentNode.removeChild(elementsScript[i])
+      }
+      let elementsLink = document.querySelectorAll('link')
+      for (let i = 0; i < elementsLink.length; i++) {
+        elementsLink[i].parentNode.removeChild(elementsLink[i])
+      }
+      let elementsStyle = document.querySelectorAll('style')
+      for (let i = 0; i < elementsStyle.length; i++) {
+        elementsStyle[i].parentNode.removeChild(elementsStyle[i])
       }
     })
     let pageContent = await page.content()
