@@ -10,9 +10,10 @@ let browser
 
 class Spider {
   async index (ctx) {
-    // console.log(ctx)
     const page = await browser.newPage()
-    await page.setUserAgent(ctx.request.header['user-agent'])
+    // delete host avoid to Error: net::ERR_TOO_MANY_REDIRECTS of some website
+    delete ctx.headers['host']
+    await page.setExtraHTTPHeaders(ctx.headers)
     await page.goto(`${Config.site}${ctx.request.url}`)
     await page.waitFor(1000)
     await page.evaluate(() => {
