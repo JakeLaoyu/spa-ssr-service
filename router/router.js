@@ -3,6 +3,6 @@ const AppRouter = new Router()
 
 const spider = require('../controllers/spider')
 
-AppRouter.get('/spider', spider.index)
+AppRouter.get('/broadcast/*', spider.index)
 
 module.exports = AppRouter

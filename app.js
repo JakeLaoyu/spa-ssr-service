@@ -5,6 +5,13 @@ const router = require('./router/router')
 
 app.use(bodyParser())
 
+// logger
+app.use(async (ctx, next) => {
+  await next()
+  const rt = ctx.response.get('X-Response-Time')
+  console.log(`${ctx.method} ${ctx.url} - ${ctx.request.header['user-agent']} - ${rt}`)
+})
+
 app
   .use(router.routes())
   .use(router.allowedMethods())
